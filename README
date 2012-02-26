@@ -27,6 +27,9 @@ Add:
 
 Beta Release
 =============
+Add:
+     1. Update SQLMap
 Fix:
      1. Checking internet connection
      2. "pwd" issue
+     3. AND - OR issue

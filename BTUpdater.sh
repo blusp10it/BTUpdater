@@ -124,6 +124,19 @@ elif [ "$1" == "SET" ] ; then
      else
           missSet="true"
      fi
+elif [ "$1" == "sqlmap" ] ; then
+     missSqlmap=""
+     dirSqlmap=""
+     sqlmapDir="/pentest/database/sqlmap/"
+     tampil aksi "Mengecek SQLMap"
+     sleep 1
+     if [ -d "$sqlmapDir" ] ; then
+          missSqlmap="false"
+          dirSqlmap="$sqlmapDir"
+          tampil inform "Direktori SQLMap = '$dirSqlmap'"
+     else
+          missSqlmap="true"
+     fi
 fi
 }
 
@@ -269,8 +282,44 @@ elif [ "$1" == "SET" ] ; then
                loop="true"
           fi
      done
+elif [ "$1" == "sqlmap" ] ; then
+     loop="true"
+     while [ "$loop" != "false" ] ; do
+          echo -en "[?] Apakah kamu mau menginstall SQLMap? [y/n] "
+          read keputusan
+          if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
+               tampil aksi "Menginstall SQLMap..."
+               `apt-get install sqlmap`
+               tampil inform "Done"
+               sleep 1
+               loop="false"
+               l00p="true"
+               while [ "$l00p" != "true" ] ; do
+                    echo -en "[?] Apakah kamu mau melakukan update? [y/n] "
+                    read choice
+                    if [ "$choice" == "y" ] || [ "$choice" == "Y" ] ; then
+                         update sqlmap
+                         l00p="false"
+                    elif [ "$choice" == "n" ] || [ "$choice" == "N" ] ; then
+                         tampil inform "It is so bad )="
+                         sleep 2
+                         l00p="false"
+                    else
+                         tampil error "Bad input"
+                    fi
+               done
+          elif [ "$keputusan" == "n" ] || [ "$keputusan" == "N" ] ; then
+               tampil peringatan "Kamu tidak menginstall SQLMap? What the FUCK?!"
+               sleep 1
+               loop="false"
+          else
+               tampil error "Pilihan tidak valid [$keputusan]"
+               loop="true"
+          fi
+     done
 fi
 }
+
 # Update
 update () {
 if [ "$1" == "metasploit" ] ; then
@@ -344,6 +393,23 @@ elif [ "$1" == "SET" ] ; then
           tampil error "SET tidak terinstall!"
           grab SET
      fi
+elif [ "$1" == "sqlmap" ] ; then
+     cek sqlmap
+     cek koneksi
+     if [ "$missSqlmap" == "false" ] ; then
+          if [ "$internet" == "true" ] ; then
+               tampil aksi "Memindahkan direktori yang aktif..."
+               cd "$sqlmapDir" && cd ../
+               tampil aksi "Melakukan update..."
+               `svn checkout https://svn.sqlmap.org/sqlmap/trunk/sqlmap sqlmap/`
+               tampil inform "Selesai"
+          elif [ "$internet" == "false" ] ; then
+               tampil error "Kamu tidak memiliki akses internet!"
+          fi
+     elif [ "$missSqlmap" == "true" ] ; then
+          tampil error "SQLMap tidak terinstall!"
+          grab sqlmap
+     fi
 fi
 }
 
@@ -359,14 +425,16 @@ Script ini dapat mengupdate software-software berikut:
 [W]3af        --- Web Application Attack and Audit Framework
 [E]xploitDB   --- Vulnerability DB by Offensive Security
 [S]ET         --- Social Engineering Toolkit (ReL1K)
+S[Q]LMap      --- Automatic Database Takeover Control
 -------------------------------------------------------------
 BANNER
-     read -p "[M/W/E/S] atau [K]eluar : "
+     read -p "[M/W/E/S/Q] atau [K]eluar : "
      case "$REPLY" in
           M|m) update metasploit ;;
           W|w) update w3af ;;
           E|e) update exploitdb ;;
           S|s) update SET ;;
+          Q|q) update sqlmap ;;
       K|k|X|x) keluar ;;
           *) tampil error "Pilihan tidak valid $REPLY" && sleep 1 ;;
      esac
