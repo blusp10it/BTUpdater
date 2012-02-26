@@ -1,6 +1,6 @@
 #!/bin/bash
 #------------------------------COPYRIGHT------------------------------#
-# BT Updater Alpha Release (Update 3rd party BT Software in one shot)
+# BT Updater Beta Release (Update 3rd party BT Software in one shot)
 # Copyright (C) 2012 Krisan Alfa Timur A.K.A blusp10it
 # Special Thanks to Omega Hanggara A.K.A red-dragon
 #
@@ -38,9 +38,9 @@ if [ -e "/tmp/testping" ] ; then
      tampil aksi "Membersihkan..."
      rm -f /tmp/testping
      sleep 1
-elif [ -e "$(pwd)/index.html" ] ; then
+elif [ -e "`pwd`/index.html" ] ; then
      tampil aksi "Membersihkan..."
-     rm -f $pwd/index.html
+     rm -f `pwd`/index.html* > /dev/null 1>&2
      sleep 1
 fi
 exit
@@ -51,15 +51,17 @@ cek () {
 if [ "$1" == "koneksi" ] ; then
      internet=""
      tampil aksi "Cek koneksi..."
+     if [ -e `pwd`/index.html ] ; then rm `pwd`/index.html ; fi
      sleep 1
      wget -nv "http://www.google.com" -o /tmp/testping
-     if [ -e "$pwd/index.html" ] ; then
-          internet="true"
-          tampil inform "Kamu terkoneksi dengan internet"
+     command=( $(cat /tmp/testping | grep -w 'index.html') )
+     if [ "$command" == "" ] ; then
+          internet="false"
+          tampil peringatan "Kamu tidak terkoneksi dengan internet"
           sleep 1
      else
-          internet="false"
-          tampil peringatan "Kamu tidak memiliki koneksi internet!"
+          internet="true"
+          tampil inform "Kamu memiliki koneksi internet!"
           sleep 1
      fi
 elif [ "$1" == "metasploit" ] ; then
@@ -349,15 +351,15 @@ fi
 while : ; do
 reset
      cat << BANNER
-------------------------------------------------------
-                  BackTrack 5 Updater
-------------------------------------------------------
+-------------------------------------------------------------
+                      BackTrack 5 Updater
+-------------------------------------------------------------
 Script ini dapat mengupdate software-software berikut:
-[M]etasploit
-[W]3af
-[E]xploitDB
-[S]ET
-------------------------------------------------------
+[M]etasploit  --- Metasploit Framework
+[W]3af        --- Web Application Attack and Audit Framework
+[E]xploitDB   --- Vulnerability DB by Offensive Security
+[S]ET         --- Social Engineering Toolkit (ReL1K)
+-------------------------------------------------------------
 BANNER
      read -p "[M/W/E/S] atau [K]eluar : "
      case "$REPLY" in

@@ -1,5 +1,5 @@
 #------------------------------COPYRIGHT------------------------------#
-# BT Updater Alpha Release (Update 3rd party BT Software in one shot)
+# BT Updater Beta Release (Update 3rd party BT Software in one shot)
 # Copyright (C) 2012 Krisan Alfa Timur A.K.A blusp10it
 # Special Thanks to Omega Hanggara A.K.A red-dragon
 #
@@ -24,3 +24,9 @@ Add:
      2. Update ExploitDB
      3. Update W3AF
      4. Update SET
+
+Beta Release
+=============
+Fix:
+     1. Checking internet connection
+     2. "pwd" issue
