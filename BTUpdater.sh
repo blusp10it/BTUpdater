@@ -519,7 +519,7 @@ elif [ "$1" == "sqlmap" ] ; then
                tampil aksi "Memindahkan direktori yang aktif..."
                cd "$sqlmapDir" && cd ../
                tampil aksi "Melakukan update..."
-               `svn checkout https://svn.sqlmap.org/sqlmap/trunk/sqlmap sqlmap/`
+               svn checkout https://svn.sqlmap.org/sqlmap/trunk/sqlmap sqlmap/
                tampil inform "Selesai"
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
