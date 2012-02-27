@@ -29,6 +29,7 @@ Beta Release
 =============
 Add:
      1. Update SQLMap
+     2. Update BTUpdater.sh
 Fix:
      1. Checking internet connection
      2. "pwd" issue
