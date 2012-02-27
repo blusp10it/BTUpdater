@@ -110,7 +110,7 @@ elif [ "$1" == "SET" ] ; then
      missSet=""
      dirSet=""
      setdir="/pentest/exploits/set/"
-     SETdir="/pentest/exploiits/SET/"
+     SETdir="/pentest/exploits/SET/"
      tampil aksi "Mengecek SET"
      sleep 1
      if [ -d "$setdir" ] ; then
@@ -136,6 +136,34 @@ elif [ "$1" == "sqlmap" ] ; then
           tampil inform "Direktori SQLMap = '$dirSqlmap'"
      else
           missSqlmap="true"
+     fi
+elif [ "$1" == "firenix" ] ; then
+     firenixDir=""
+     missFirenix=""
+     tampil aksi "Mengecek FireNix..."
+     tampil info "Default directory FireNix adalah /pentest/blusp10it/Firenix."
+     sleep 1
+     if [ -d "/pentest/blusp10it/FireNix" ] ; then
+          tampil info "Direktori /pentest/blusp10it/FireNix ada."
+          missFirenix="false"
+          firenixDir="/pentest/blusp10it/FireNix"
+     else
+          tampil info "Direktori /pentest/blusp10it/FireNix tidak ada."
+          missFirenix="true"
+     fi
+elif [ "$1" == "wifire" ] ; then
+     firenixDir=""
+     missWiFire=""
+     tampil aksi "Mengecek WiFire..."
+     tampil info "Default directory WiFire adalah /pentest/blusp10it/WiFire."
+     sleep 1
+     if [ -d "/pentest/blusp10it/WiFire" ] ; then
+          tampil info "Direktori /pentest/blusp10it/WiFire ada."
+          missWiFire="false"
+          WiFireDir="/pentest/blusp10it/WiFire"
+     else
+          tampil info "Direktori /pentest/blusp10it/WiFire tidak ada."
+          missWiFire="true"
      fi
 fi
 }
@@ -317,6 +345,94 @@ elif [ "$1" == "sqlmap" ] ; then
                loop="true"
           fi
      done
+elif [ "$1" == "firenix" ] ; then
+     loop="true"
+     while [ "$loop" != "false" ] ; do
+          echo -en "[?] Apakah kamu mau menginstall FireNix? [y/n] "
+          read keputusan
+          if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
+               tampil aksi "Menginstall FireNix..."
+               tampil aksi "Mengecek direktori"
+               if [ -d "/pentest/blusp10it" ] ; then
+                    tampil aksi "Menginstall FireNix..."
+                    `git clone https://blusp10it@github.com/blusp10it/FireNix.git`
+               else
+                    tampil aksi "Membuat direktori /pentest/blusp10it"
+                    mkdir /pentest/blusp10it
+                    tampil aksi "Menginstall"
+                    git clone https://blusp10it@github.com/blusp10it/FireNix.git
+                    tampil inform "Done"
+                    sleep 1
+                    loop="false"
+                    l00p="true"
+                    while [ "$l00p" != "true" ] ; do
+                         echo -en "[?] Apakah kamu mau melakukan update? [y/n] "
+                         read choice
+                         if [ "$choice" == "y" ] || [ "$choice" == "Y" ] ; then
+                              update firenix
+                              l00p="false"
+                         elif [ "$choice" == "n" ] || [ "$choice" == "N" ] ; then
+                              tampil inform "It is so bad )="
+                              sleep 2
+                              l00p="false"
+                         else
+                              tampil error "Bad input"
+                         fi
+                    done
+               fi
+          elif [ "$keputusan" == "n" ] || [ "$keputusan" == "N" ] ; then
+               tampil peringatan "Kamu tidak menginstall FireNix? What the FUCK?!"
+               sleep 1
+               loop="false"
+          else
+               tampil error "Pilihan tidak valid [$keputusan]"
+               loop="true"
+          fi
+     done
+elif [ "$1" == "wifire" ] ; then
+     loop="true"
+     while [ "$loop" != "false" ] ; do
+          echo -en "[?] Apakah kamu mau menginstall WiFire? [y/n] "
+          read keputusan
+          if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
+               tampil aksi "Menginstall WiFire..."
+               tampil aksi "Mengecek direktori"
+               if [ -d "/pentest/blusp10it" ] ; then
+                    tampil aksi "Menginstall WiFire..."
+                    `git clone https://blusp10it@github.com/blusp10it/WiFire.git`
+               else
+                    tampil aksi "Membuat direktori /pentest/blusp10it"
+                    mkdir /pentest/blusp10it
+                    tampil aksi "Menginstall"
+                    git clone https://blusp10it@github.com/blusp10it/WiFire.git
+                    tampil inform "Done"
+                    sleep 1
+                    loop="false"
+                    l00p="true"
+                    while [ "$l00p" != "true" ] ; do
+                         echo -en "[?] Apakah kamu mau melakukan update? [y/n] "
+                         read choice
+                         if [ "$choice" == "y" ] || [ "$choice" == "Y" ] ; then
+                              update wifire
+                              l00p="false"
+                         elif [ "$choice" == "n" ] || [ "$choice" == "N" ] ; then
+                              tampil inform "It is so bad )="
+                              sleep 2
+                              l00p="false"
+                         else
+                              tampil error "Bad input"
+                         fi
+                    done
+               fi
+          elif [ "$keputusan" == "n" ] || [ "$keputusan" == "N" ] ; then
+               tampil peringatan "Kamu tidak menginstall WiFire? What the FUCK?!"
+               sleep 1
+               loop="false"
+          else
+               tampil error "Pilihan tidak valid [$keputusan]"
+               loop="true"
+          fi
+     done
 fi
 }
 
@@ -423,6 +539,40 @@ elif [ "$1" == "btupdater" ] ; then
           tampil error "Kamu tidak memiliki akses internet!"
           sleep 1
      fi
+elif [ "$1" == "firenix" ] ; then
+     cek firenix
+     cek koneksi
+     if [ "$missFirenix" == "false" ] ; then
+          if [ "$internet" == "true" ] ; then
+               tampil aksi "Memindahkan direktori yang aktif..."
+               cd "$firenixDir"
+               tampil aksi "Melakukan update..."
+               git pull
+               tampil inform "Selesai"
+          elif [ "$internet" == "false" ] ; then
+               tampil error "Kamu tidak memiliki akses internet!"
+          fi
+     elif [ "$missFirenix" == "true" ] ; then
+          tampil error "FireNix tidak terinstall!"
+          grab firenix
+     fi
+elif [ "$1" == "wifire" ] ; then
+     cek wifire
+     cek koneksi
+     if [ "$missWifire" == "false" ] ; then
+          if [ "$internet" == "true" ] ; then
+               tampil aksi "Memindahkan direktori yang aktif..."
+               cd "$wifireDir"
+               tampil aksi "Melakukan update..."
+               git pull
+               tampil inform "Selesai"
+          elif [ "$internet" == "false" ] ; then
+               tampil error "Kamu tidak memiliki akses internet!"
+          fi
+     elif [ "$missWifire" == "true" ] ; then
+          tampil error "WiFire tidak terinstall!"
+          grab wifire
+     fi
 fi
 }
 
@@ -440,9 +590,11 @@ Script ini dapat mengupdate software-software berikut:
 [S]ET         --- Social Engineering Toolkit (ReL1K)
 S[Q]LMap      --- Automatic Database Takeover Control
 [B]TUpdater   --- Update this script (=
+[F]ireNix     --- Update FireNix script
+W[i]Fire      --- Update WiFire script
 -------------------------------------------------------------
 BANNER
-     read -p "[M/W/E/S/Q] atau [K]eluar : "
+     read -p "[M/W/E/S/Q/B/F/i] atau [K]eluar : "
      case "$REPLY" in
           M|m) update metasploit ;;
           W|w) update w3af ;;
@@ -450,6 +602,8 @@ BANNER
           S|s) update SET ;;
           Q|q) update sqlmap ;;
           B|b) update btupdater ;;
+          F|f) update firenix ;;
+          I|i) update wifire ;;
       K|k|X|x) keluar ;;
           *) tampil error "Pilihan tidak valid $REPLY" && sleep 1 ;;
      esac
