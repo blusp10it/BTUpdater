@@ -410,6 +410,19 @@ elif [ "$1" == "sqlmap" ] ; then
           tampil error "SQLMap tidak terinstall!"
           grab sqlmap
      fi
+elif [ "$1" == "btupdater" ] ; then
+     cek koneksi
+     if [ "$internet" == "true" ] ; then
+          tampil aksi "Memindahkan direktori yang aktif..."
+          cd `pwd`
+          tampil aksi "Melakukan update"
+          git pull
+          tampil inform "Done"
+          sleep 1
+     else
+          tampil error "Kamu tidak memiliki akses internet!"
+          sleep 1
+     fi
 fi
 }
 
@@ -426,6 +439,7 @@ Script ini dapat mengupdate software-software berikut:
 [E]xploitDB   --- Vulnerability DB by Offensive Security
 [S]ET         --- Social Engineering Toolkit (ReL1K)
 S[Q]LMap      --- Automatic Database Takeover Control
+[B]TUpdater   --- Update this script (=
 -------------------------------------------------------------
 BANNER
      read -p "[M/W/E/S/Q] atau [K]eluar : "
@@ -435,6 +449,7 @@ BANNER
           E|e) update exploitdb ;;
           S|s) update SET ;;
           Q|q) update sqlmap ;;
+          B|b) update btupdater ;;
       K|k|X|x) keluar ;;
           *) tampil error "Pilihan tidak valid $REPLY" && sleep 1 ;;
      esac
