@@ -34,13 +34,14 @@ return 0
 
 # Keluar
 keluar () {
+index=( $(pwd) )
 if [ -e "/tmp/testping" ] ; then
-     tampil aksi "Membersihkan..."
+     tampil aksi "Membersihkan testping..."
      rm -f /tmp/testping
      sleep 1
-elif [ -e "`pwd`/index.html" ] ; then
-     tampil aksi "Membersihkan..."
-     rm -f `pwd`/index.html* > /dev/null 1>&2
+elif [ -e "$index/index.html" ] ; then
+     tampil aksi "Membersihkan index.html..."
+     rm -f $index/index.html* > /dev/null
      sleep 1
 fi
 exit
