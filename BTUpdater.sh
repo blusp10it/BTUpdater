@@ -39,7 +39,8 @@ if [ -e "/tmp/testping" ] ; then
      tampil aksi "Membersihkan testping..."
      rm -f /tmp/testping
      sleep 1
-elif [ -e "$index/index.html" ] ; then
+fi
+if [ -e "$index/index.html" ] ; then
      tampil aksi "Membersihkan index.html..."
      rm -f $index/index.html* > /dev/null
      sleep 1
@@ -356,7 +357,7 @@ elif [ "$1" == "firenix" ] ; then
                tampil aksi "Mengecek direktori"
                if [ -d "/pentest/blusp10it" ] ; then
                     tampil aksi "Menginstall FireNix..."
-                    `git clone https://blusp10it@github.com/blusp10it/FireNix.git`
+                    git clone https://blusp10it@github.com/blusp10it/FireNix.git
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
                     mkdir /pentest/blusp10it
