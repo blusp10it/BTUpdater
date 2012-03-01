@@ -184,7 +184,7 @@ if [ "$1" == "metasploit" ] ; then
           read keputusan
           if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
                tampil aksi "Menginstall Metasploit Framework..."
-               `apt-get install framework`
+               apt-get install framework -y
                tampil inform "Done"
                sleep 1
                loop="false"
@@ -220,7 +220,7 @@ elif [ "$1" == "w3af" ] ; then
           read keputusan
           if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
                tampil aksi "Menginstall W3af..."
-               `apt-get install w3af`
+               apt-get install w3af -y
                tampil inform "Done"
                sleep 1
                loop="false"
@@ -256,7 +256,7 @@ elif [ "$1" == "exploitdb" ] ; then
           read keputusan
           if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
                tampil aksi "Menginstall ExploitDB..."
-               `apt-get install exploitdb`
+               apt-get install exploitdb -y
                tampil inform "Done"
                sleep 1
                loop="false"
@@ -292,7 +292,7 @@ elif [ "$1" == "SET" ] ; then
           read keputusan
           if [ "$keputusan" == "y" ] || [ "$keputusan" == "Y" ] ; then
                tampil aksi "Menginstall SET..."
-               apt-get install set
+               apt-get install set -y
                tampil inform "Done"
                sleep 1
                loop="false"
@@ -366,8 +366,13 @@ elif [ "$1" == "firenix" ] ; then
                tampil aksi "Menginstall FireNix..."
                tampil aksi "Mengecek direktori"
                if [ -d "/pentest/blusp10it" ] ; then
-                    tampil aksi "Menginstall FireNix..."
-                    git clone https://blusp10it@github.com/blusp10it/FireNix.git
+                    if [ -d "/pentest/blusp10it/FireNix" ]; then
+                         tampil aksi "Menginstall FireNix..."
+                         cd /pentest/blusp10it/FireNix
+                         git pull
+                    else
+                         tampil aksi "Menginstall FireNix..."
+                         git clone https://blusp10it@github.com/blusp10it/FireNix.git
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
                     mkdir /pentest/blusp10it
