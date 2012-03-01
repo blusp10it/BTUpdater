@@ -375,6 +375,7 @@ elif [ "$1" == "firenix" ] ; then
                          tampil aksi "Menginstall FireNix..."
                          cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
+                    fi
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
                     mkdir /pentest/blusp10it
