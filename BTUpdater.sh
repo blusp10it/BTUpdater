@@ -35,16 +35,11 @@ return 0
 #------------------------------Keluar------------------------------#
 keluar () {
 index=( $(pwd) )
-if [ -e "/tmp/testping" ] ; then
-     tampil aksi "Membersihkan testping..."
-     rm -f /tmp/testping
-     sleep 1
-fi
-if [ -e "$index/index.html" ] ; then
-     tampil aksi "Membersihkan index.html..."
-     rm -f $index/index.html* > /dev/null
-     sleep 1
-fi
+tampil aksi "Membersihkan testping..."
+rm -f /tmp/testping > /dev/null
+tampil aksi "Membersihkan index.html..."
+rm -f $index/index.html* > /dev/null
+tampil inform "Are you blusp10it?"
 exit
 }
 
