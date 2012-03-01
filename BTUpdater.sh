@@ -367,11 +367,13 @@ elif [ "$1" == "firenix" ] ; then
                tampil aksi "Mengecek direktori"
                if [ -d "/pentest/blusp10it" ] ; then
                     if [ -d "/pentest/blusp10it/FireNix" ]; then
+                         loop="false"
                          tampil aksi "Menginstall FireNix..."
                          rm -rf /pentest/blusp10it/FireNix
                          cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
                     else
+                         loop="false"
                          tampil aksi "Menginstall FireNix..."
                          cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
