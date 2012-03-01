@@ -368,10 +368,12 @@ elif [ "$1" == "firenix" ] ; then
                if [ -d "/pentest/blusp10it" ] ; then
                     if [ -d "/pentest/blusp10it/FireNix" ]; then
                          tampil aksi "Menginstall FireNix..."
-                         cd /pentest/blusp10it/FireNix
-                         git pull
+                         rm -rf /pentest/blusp10it/FireNix
+                         cd /pentest/blusp10it
+                         git clone https://blusp10it@github.com/blusp10it/FireNix.git
                     else
                          tampil aksi "Menginstall FireNix..."
+                         cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
