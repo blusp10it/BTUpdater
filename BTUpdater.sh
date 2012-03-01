@@ -372,11 +372,15 @@ elif [ "$1" == "firenix" ] ; then
                          rm -rf /pentest/blusp10it/FireNix
                          cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
+                         tampil inform "Selesai"
+                         sleep 2
                     else
                          loop="false"
                          tampil aksi "Menginstall FireNix..."
                          cd /pentest/blusp10it
                          git clone https://blusp10it@github.com/blusp10it/FireNix.git
+                         tampil inform "Selesai"
+                         sleep 2
                     fi
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
@@ -384,8 +388,8 @@ elif [ "$1" == "firenix" ] ; then
                     tampil aksi "Menginstall"
                     cd /pentest/blusp10it
                     git clone https://blusp10it@github.com/blusp10it/FireNix.git
-                    tampil inform "Done"
-                    sleep 1
+                    tampil inform "Selesai"
+                    sleep 2
                     loop="false"
                     l00p="true"
                     while [ "$l00p" != "true" ] ; do
@@ -424,7 +428,9 @@ elif [ "$1" == "wifire" ] ; then
                if [ -d "/pentest/blusp10it" ] ; then
                     tampil aksi "Menginstall WiFire..."
                     cd /pentest/blusp10it
+                    rm -rf /pentest/blusp10it/WiFire > /dev/null
                     git clone https://blusp10it@github.com/blusp10it/WiFire.git
+                    loop="false"
                else
                     tampil aksi "Membuat direktori /pentest/blusp10it"
                     mkdir /pentest/blusp10it
@@ -478,7 +484,8 @@ if [ "$1" == "metasploit" ] ; then
                cd "$msfDir"
                tampil akse "Melakukan update..."
                svn update
-               tampil inform "Selesai (=)"
+               tampil inform "Selesai (="
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -493,7 +500,8 @@ elif [ "$1" == "w3af" ] ; then
                cd "$w3afDir"
                tampil aksi "Melakukan update..."
                svn update
-               tampil inform "Selesai (=)"
+               tampil inform "Selesai (="
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -512,7 +520,8 @@ elif [ "$1" == "exploitdb" ] ; then
                cd "$exdbDir"
                tampil aksi "Melakukan update..."
                svn update
-               tampil inform "Selesai (=)"
+               tampil inform "Selesai (="
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -532,6 +541,7 @@ elif [ "$1" == "SET" ] ; then
                tampil aksi "Melakukan update..."
                svn update
                tampil inform "Selesai"
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -550,6 +560,7 @@ elif [ "$1" == "sqlmap" ] ; then
                tampil aksi "Melakukan update..."
                svn checkout https://svn.sqlmap.org/sqlmap/trunk/sqlmap sqlmap/
                tampil inform "Selesai"
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -583,6 +594,7 @@ elif [ "$1" == "firenix" ] ; then
                tampil aksi "Melakukan update..."
                git pull
                tampil inform "Selesai"
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
@@ -594,17 +606,18 @@ elif [ "$1" == "firenix" ] ; then
 elif [ "$1" == "wifire" ] ; then
      cek wifire
      cek koneksi
-     if [ "$missWifire" == "false" ] ; then
+     if [ "$missWiFire" == "false" ] ; then
           if [ "$internet" == "true" ] ; then
                tampil aksi "Memindahkan direktori yang aktif..."
                cd "$wifireDir"
                tampil aksi "Melakukan update..."
                git pull
                tampil inform "Selesai"
+               sleep 2
           elif [ "$internet" == "false" ] ; then
                tampil error "Kamu tidak memiliki akses internet!"
           fi
-     elif [ "$missWifire" == "true" ] ; then
+     elif [ "$missWiFire" == "true" ] ; then
           tampil error "WiFire tidak terinstall!"
           grab wifire
      fi
